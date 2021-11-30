@@ -40,7 +40,7 @@
 
 	<%
 		ArrayList<Member> members = new ArrayList<>();
-		FileInputStream fileInputStream = new FileInputStream("D:/jj_ansan_ezen/jsp_sample/src/main/java/Test/memberlist.txt");
+		FileInputStream fileInputStream = new FileInputStream("/Users/jj/git/jj_jsp/jsp_sample/src/main/java/Test/memberlist.txt");
 		int size1 = fileInputStream.available();
 		byte[] bytes = new byte[size1];
 		fileInputStream.read(bytes);
@@ -59,7 +59,7 @@
 	
 	<%
 		ArrayList<Board> boards = new ArrayList<>();
-		FileInputStream fileInputStream2 = new FileInputStream("D:/jj_ansan_ezen/jsp_sample/src/main/java/Test/boardlist.txt");
+		FileInputStream fileInputStream2 = new FileInputStream("/Users/jj/git/jj_jsp/jsp_sample/src/main/java/Test/boardlist.txt");
 		int size2 = fileInputStream2.available();
 		byte[] bytes2 = new byte[size2];
 		fileInputStream2.read(bytes2);
@@ -82,7 +82,7 @@
 		
 		ArrayList<Book> books = new ArrayList<>();
 	
-		FileInputStream fileInputStream3 = new FileInputStream("D:/jj_ansan_ezen/jsp_sample/src/main/java/Test/booklist.txt");
+		FileInputStream fileInputStream3 = new FileInputStream("/Users/jj/git/jj_jsp/jsp_sample/src/main/java/Test/booklist.txt");
 		
 		int size3 = fileInputStream3.available();
 		byte[] bytes3 = new byte[size3];

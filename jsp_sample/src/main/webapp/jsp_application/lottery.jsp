@@ -18,25 +18,31 @@
 		int[] selected_numbers = new int[6]; // 2. 난수로 생성된 숫자가 담기는 배열 
 		int count = 6;
 		int win = 0;
+		int idx = 0;
 	%>
 	
 	<%
+		
 		request.setCharacterEncoding("UTF-8");
 		for(int i=1; i<=45; i++) {
+			boolean check = true;
 			if(request.getParameter(i+"") != null && request.getParameter(i+"").equals(i+"")){
-				// int lot = Integer.parseInt(request.getParameter(i+""));
-					for(int j=0; j<6; j++){
-						if(i == (lottery_list[j])){
-							out.print("중복된 숫자입니다. ");
-						} else {
-							// 중복이 아닐 경우에 배열에 추가 
-							if(lottery_list[j] == 0){
-								lottery_list[j] = i;
-								break;
-							}
-						}
+				for(int j=0; j<6; j++){
+					if(lottery_list[j] == i){
+						// 1. 중복 존재 
+						out.print("중복 ");
+						check = false;
+						break;
 					}
-				break;
+				}
+				if(check){
+					if(idx<=5){
+						lottery_list[idx++] = i;
+					} else{
+						out.print("선택 종료 ");
+						break;
+					}
+				}
 			} 
 		}
 	%>
