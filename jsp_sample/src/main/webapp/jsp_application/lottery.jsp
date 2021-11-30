@@ -72,8 +72,24 @@
 			}
 		}
 	%>
+	
+	<%
+		// 1. 리셋 버튼을 누르면 리셋시킨다. 
+		if(request.getParameter("status") != null){
+			if(request.getParameter("status").equals("reset") ){
+				Arrays.fill(lottery_list, 0);			
+			}
+		}
+	%>
 
 	<div class="container my-3 p-2">
+		
+		<form action="lottery.jsp?status=reset">
+			<div class="form-row">
+				<button type="submit" class="btn btn-warning" name="reset">리셋</button>
+			</div>
+		</form>
+		
 		<div class="row" style="border: solid 1px #cccccc">
 			<div class="col-md-6">
 				<h3 style="color: green; font-size: 25px;"><% out.print("랜덤하게 생성된 숫자"); %></h3>
@@ -94,7 +110,7 @@
 			<div class="col-md-6" style="font-size: 30px; color: red;">
 				<%
 					for(int i=0; i<6; i++) { 
-						out.print(lottery_list[i] + "\n");
+						out.print(lottery_list[i] + "  ");
 					}
 				%>
 			</div>
