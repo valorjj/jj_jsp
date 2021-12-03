@@ -13,7 +13,7 @@
 	<%@ include file="header.jsp" %>
 
 	<%! 
-	// 전역 변수로 쓰려면 여기에 선언한다. 
+		// 전역 변수로 쓰려면 여기에 선언한다. 
 		int[] lottery_list = new int[6];  // 1. 유저가 선택한 숫자를 담는 배열
 		int[] selected_numbers = new int[6]; // 2. 난수로 생성된 숫자가 담기는 배열 
 		int count = 6;
@@ -22,15 +22,19 @@
 	%>
 	
 	<%
-		
 		request.setCharacterEncoding("UTF-8");
 		for(int i=1; i<=45; i++) {
 			boolean check = true;
 			if(request.getParameter(i+"") != null && request.getParameter(i+"").equals(i+"")){
 				for(int j=0; j<6; j++){
 					if(lottery_list[j] == i){
-						// 1. 중복 존재 
-						out.print("중복 ");
+						// 1. 중복 존재 %>
+						<div class="container">
+							<div class="row">
+								<h3 class="text-center"> 중복입니다. </h3>
+							</div>
+						</div>
+						<%  out.print("중복 ");
 						check = false;
 						break;
 					}
@@ -39,7 +43,6 @@
 					if(idx<=5){
 						lottery_list[idx++] = i;
 					} else{
-						out.print("선택 종료 ");
 						break;
 					}
 				}
@@ -50,9 +53,7 @@
 	<% 
 		// 1. 난수 생성해서 당첨 번호를 만든다. 
 		Random random = new Random();
-		
 		for(int i=0; i<6; i++){
-			
 			if(selected_numbers[i] == 0){
 				int rand = random.nextInt(45);
 				if(selected_numbers[i] != rand){
@@ -62,16 +63,6 @@
 		}
 	%>
 	
-	<%
-		// 1. 몇개나 당첨인지 출력한다.
-		for(int i=0; i<6; i++){
-			for(int j=0; j<6; j++){
-				if(lottery_list[i] == selected_numbers[j]){
-					win++;
-				}
-			}
-		}
-	%>
 	
 	<%
 		// 1. 리셋 버튼을 누르면 리셋시킨다. 
@@ -124,6 +115,7 @@
 		
 		<form action="lottery.jsp" method="get">
 			<table class="table table-borderless">
+			
 				<tr>
 					<th> 1열 </th>
 					<th> 2열 </th>
@@ -145,9 +137,21 @@
 						<% } %>
 					<% } %>
 				</tr>
+				
 			</table>
 		</form>
-		
 	</div>
+	
+	<%
+		// 1. 몇개나 당첨인지 출력한다.
+		for(int i=0; i<6; i++){
+			for(int j=0; j<6; j++){
+				if(lottery_list[i] == selected_numbers[j]){
+					win++;
+				}
+			}
+		}
+	%>
+	
 </body>
 </html>

@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+* {
+	font-family: 'NanumGothic';
+}
+
+h1, h2, h3, h4 {
+	
+	font-family: 'NanumGothicBold';
+	
+}
+
+.header_logo {
+	font-size: 2rem;
+	color : #171521;
+}
+
+.header_menu {
+	margin-left: 20px;
+	color: #999;
+}
+
+.carousel-item img {
+	width: 100%;
+}
