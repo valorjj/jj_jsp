@@ -11,11 +11,12 @@ public class Board {
 	private String b_file;
 	private int b_view;
 	private int b_activation;
+	private String b_file2;
 
 	// 1. 빈 생성자
 	public Board() {
 	}
-	
+
 	// 1. 전체 생성자
 	public Board(int b_no, String b_title, String b_content, int m_num, String b_date, String b_file, int b_view,
 			int b_activation) {
@@ -29,12 +30,34 @@ public class Board {
 		this.b_activation = b_activation;
 	}
 
-	// 1. 등록 생성자 
+	public Board(int b_no, String b_title, String b_content, int m_num, String b_date, String b_file, int b_view,
+			int b_activation, String b_file2) {
+		this.b_no = b_no;
+		this.b_title = b_title;
+		this.b_content = b_content;
+		this.m_num = m_num;
+		this.b_date = b_date;
+		this.b_file = b_file;
+		this.b_view = b_view;
+		this.b_activation = b_activation;
+		this.b_file2 = b_file2;
+	}
+
+	// 1. 등록 생성자
 	public Board(String b_title, String b_content, int m_num, String b_file) {
 		this.b_title = b_title;
 		this.b_content = b_content;
 		this.m_num = m_num;
 		this.b_file = b_file;
+	}
+
+	// 1. 첨부파일 2개일 때 생성자
+	public Board(String b_title, String b_content, int m_num, String b_file, String b_file2) {
+		this.b_title = b_title;
+		this.b_content = b_content;
+		this.m_num = m_num;
+		this.b_file = b_file;
+		this.b_file2 = b_file2;
 	}
 
 	public int getB_no() {
@@ -99,6 +122,14 @@ public class Board {
 
 	public void setB_activation(int b_activation) {
 		this.b_activation = b_activation;
+	}
+
+	public String getB_file2() {
+		return b_file2;
+	}
+
+	public void setB_file2(String b_file2) {
+		this.b_file2 = b_file2;
 	}
 
 }

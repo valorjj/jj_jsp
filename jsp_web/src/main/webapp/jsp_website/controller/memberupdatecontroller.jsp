@@ -5,13 +5,12 @@
 <%
 request.setCharacterEncoding("utf-8");
 
-
 String newname = request.getParameter("newname");
 
 Login_Id login = (Login_Id) session.getAttribute("login");
 
-
 String loginid = login.getM_id();
+
 String name = request.getParameter("name");
 String password = request.getParameter("password");
 String phone = request.getParameter("phone");
@@ -28,19 +27,14 @@ boolean res_phonenumber_update = MemberDao.getmemberDao().member_update_password
 boolean res_birthdate_update = MemberDao.getmemberDao().member_update_birthdate(birthdate, loginid);
 boolean res_address_update = MemberDao.getmemberDao().member_update_address(address, loginid);
 
-
-/* if( newname != null){
-	
-	if(MemberDao.getmemberDao().member_update("m_name", newname, loginid){
-		
-		
+if (name != null) {
+	if (MemberDao.getmemberDao().member_update("m_name", name, loginid)) {
+		out.print("1");
 	} else {
-		
-		
+		out.print("0");
 	}
-	
-} */
 
+}
 
 if (res_name_update) {
 	out.print("1");

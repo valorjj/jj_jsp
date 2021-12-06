@@ -25,6 +25,7 @@ String title = multi.getParameter("title");
 String content = multi.getParameter("content");
 
 String file = multi.getFilesystemName("file");
+String file2 = multi.getFilesystemName("file2");
 
 // getFilesystemName : 실제 파일 이름을 가져온다. 업로드와는 관련없고, enctype="multipart/form-data" 얘랑 관련있다. 
 
@@ -37,9 +38,7 @@ String file = request.getParameter("file"); */
 Login_Id login_data = (Login_Id) session.getAttribute("login");
 int m_num = login_data.getM_num();
 
-Board board = new Board(title, content, m_num, file);
-
-BoardDao.getboardDao().board_write(board);
-
+Board board = new Board(title, content, m_num, file, file2);
+BoardDao.getboardDao().board_write_file2(board);
 response.sendRedirect("../view/board/board_list.jsp");
 %>

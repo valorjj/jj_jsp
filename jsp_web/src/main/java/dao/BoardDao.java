@@ -26,7 +26,6 @@ public class BoardDao {
 
 	// 1. 생성자
 	public BoardDao() {
-
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			try {
@@ -59,6 +58,23 @@ public class BoardDao {
 		return false;
 	}
 
+	public boolean board_write_file2(Board board) {
+		String sql = "insert into board(b_title, b_content, m_num, b_file, b_file2) values(?,?,?,?,?)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, board.getB_title());
+			psmt.setString(2, board.getB_content());
+			psmt.setInt(3, board.getM_num());
+			psmt.setString(4, board.getB_file());
+			psmt.setString(5, board.getB_file2());
+			psmt.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	public ArrayList<Board> board_list() {
 
 		ArrayList<Board> boards = new ArrayList<>();
@@ -80,19 +96,16 @@ public class BoardDao {
 	}
 
 	public Board get_board(int b_no) {
-
 		String sql = " select * from board where b_no=?";
-
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, b_no);
 			res = psmt.executeQuery();
 			if (res.next()) {
 				Board board = new Board(res.getInt(1), res.getString(2), res.getString(3), res.getInt(4),
-						res.getString(5), res.getString(6), res.getInt(7), res.getInt(8));
+						res.getString(5), res.getString(6), res.getInt(7), res.getInt(8), res.getString(9));
 				return board;
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

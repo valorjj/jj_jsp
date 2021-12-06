@@ -13,9 +13,8 @@
 
 	<%
 	request.setCharacterEncoding("utf-8");
-	Login_Id login = (Login_Id) session.getAttribute("login");
 
-	String id = login.getM_id();
+	String id = request.getParameter("id");
 	String password = request.getParameter("password");
 	String passwordconfirm = request.getParameter("passwordconfirm");
 	String name = request.getParameter("name");

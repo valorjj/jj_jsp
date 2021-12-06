@@ -169,9 +169,6 @@ public class MemberDao {
 	public boolean member_drop(String id, String password) {
 		String sql1 = "select * from member where m_id=? and m_password=?";
 		String sql2 = "delete from member where m_id=? and m_password=?";
-
-		// String sql3= "delete from member where (m_id, m_password) IN (select m_id,
-		// m_password from member where m_id=? and m_password=?)";
 		try {
 			psmt = conn.prepareStatement(sql1);
 			psmt.setString(1, id);
@@ -189,6 +186,9 @@ public class MemberDao {
 		}
 		return false;
 	}
+
+	// 1. 회원 정보 수정하는 메소드
+	// 1.1 wildcard '?' 을 활용해서 중복되는 메소드 사용을 줄여본다.
 
 	public boolean member_update(String type, String newdata, String id) {
 

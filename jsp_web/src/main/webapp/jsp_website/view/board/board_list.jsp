@@ -14,13 +14,14 @@
 	<%@ include file="../header.jsp"%>
 
 	<div class="container">
-	
-		<div class="d-grid gap-2 col-6 mx-auto">
-			<a href="board_write.jsp" >
-				<button class="form-control btn btn-success my-3">글쓰기</button>
-			</a>
-		</div>
 
+		<div class="text-center">
+			<p
+				style="font-size: 30px; font-weight: bold; font-family: 'NanumGothicBold';"
+				class="text-center">게시물 목록</p>
+		</div>
+		
+		<hr>
 
 		<table class="table table-striped">
 			<tr>
@@ -29,15 +30,11 @@
 				<th>작성자</th>
 				<th>작성일</th>
 				<th>조회수</th>
-
 			</tr>
-
 			<%
 			ArrayList<Board> boards = BoardDao.getboardDao().board_list();
-
 			for (Board board : boards) {
 			%>
-
 			<tr>
 				<td><%=board.getB_no()%></td>
 				<td><a href="board_view.jsp?b_no=<%=board.getB_no()%>"><%=board.getB_title()%></a></td>
@@ -45,14 +42,18 @@
 				<td><%=board.getM_num()%></td>
 				<td><%=board.getB_date()%></td>
 				<td><%=board.getB_view()%></td>
-
 			</tr>
 
 			<%
 			}
 			%>
-
 		</table>
+
+		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+			<a href="board_write.jsp">
+				<button class="form-control btn btn-primary my-3">글쓰기</button>
+			</a>
+		</div>
 	</div>
 
 </body>
