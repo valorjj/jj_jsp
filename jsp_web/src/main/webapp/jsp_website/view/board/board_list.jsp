@@ -15,7 +15,7 @@
 
 	<div class="container">
 		<a href="board_write.jsp" >
-			<button class="form-control">글쓰기</button>
+			<button class="form-control btn btn-primary">글쓰기</button>
 		</a>
 
 		<table class="table">

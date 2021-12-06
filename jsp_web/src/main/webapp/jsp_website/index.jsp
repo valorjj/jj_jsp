@@ -8,5 +8,7 @@
 </head>
 <body>
 
+	<jsp:forward page="view/main.jsp"></jsp:forward>
+
 </body>
 </html>
