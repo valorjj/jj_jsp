@@ -96,21 +96,6 @@ public class MemberDao {
 		return false;
 	}
 
-	public boolean pwcheck(String userpassword) {
-		String sql = "select * from member where m_password=?";
-		try {
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, userpassword);
-			res = psmt.executeQuery();
-			if (res.next()) {
-				return true;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
 	public String findid(String name, String email) {
 
 		String sql = "select m_id from member where m_name=? and m_password=?";
@@ -204,23 +189,23 @@ public class MemberDao {
 		}
 		return false;
 	}
-	
+
 	public boolean member_update(String type, String newdata, String id) {
-		
+
 		// String sql = "update member set ?=? where m_id=?";
-		
-		String sql = "update member set "+type+"=? where m_id=?";
-		
+
+		String sql = "update member set " + type + "=? where m_id=?";
+
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, type);
-			psmt.setString(2,  id);
+			psmt.setString(2, id);
 			psmt.executeUpdate();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return false;
 	}
 
@@ -299,6 +284,27 @@ public class MemberDao {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	// 1. 회원 번호를 찾는 메소드
+
+	public int member_find_m_num(String id) {
+
+		String sql = "select m_num from member where m_id=?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			res = psmt.executeQuery();
+			if (res.next()) {
+				return res.getInt(1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+
 	}
 
 }

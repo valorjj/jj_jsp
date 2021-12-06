@@ -1,3 +1,4 @@
+<%@page import="dao.Login_Id"%>
 <%@page import="dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -7,8 +8,10 @@ request.setCharacterEncoding("utf-8");
 
 String newname = request.getParameter("newname");
 
+Login_Id login = (Login_Id) session.getAttribute("login");
 
-String loginid = (String) session.getAttribute("loginid");
+
+String loginid = login.getM_id();
 String name = request.getParameter("name");
 String password = request.getParameter("password");
 String phone = request.getParameter("phone");

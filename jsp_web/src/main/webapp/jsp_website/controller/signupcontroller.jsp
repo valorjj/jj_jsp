@@ -1,3 +1,4 @@
+<%@page import="dao.Login_Id"%>
 <%@page import="dao.MemberDao"%>
 <%@page import="dto.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -12,7 +13,9 @@
 
 	<%
 	request.setCharacterEncoding("utf-8");
-	String id = request.getParameter("id");
+	Login_Id login = (Login_Id) session.getAttribute("login");
+
+	String id = login.getM_id();
 	String password = request.getParameter("password");
 	String passwordconfirm = request.getParameter("passwordconfirm");
 	String name = request.getParameter("name");
@@ -35,6 +38,6 @@
 		response.sendRedirect("../view/member/signup.jsp");
 	}
 	%>
-	
+
 </body>
 </html>

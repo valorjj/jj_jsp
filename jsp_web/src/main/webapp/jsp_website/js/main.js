@@ -190,25 +190,35 @@ function updatebirthdate() {
 
 /* "<div class='input-group'> <input id='address' type='button' onclick='sample4_execDaumPostcode()' value='우편번호 찾기' class='form-control btn btn-primary' ></div>";*/
 /* 5. 회원 주소 변경하기 */
-function updateaddress() {
-	document.getElementById("traddress").style.display = "";
-	// document.getElementById("tdaddress").innerHTML = "";
-	$(function() {
-		$("#addressupdatebtn").click(function() {
-			$.ajax({
-				url: "../../controller/memberupdatecontroller.jsp",
-				data: { address1: document.getElementById("sample4_postcode").value, address2: document.getElementById("sample4_roadAddress").value, address3: document.getElementById("sample4_jibunAddress").value, address4: document.getElementById("sample4_detailAddress").value },
-				success: function(result) {
-					if (result == 5) {
-						document.getElementById("traddress").style.display = "none";
-						document.getElementById("tdaddress").innerHTML = "";
-					}
+
+
+$(function() {
+	$("#add_update").click(function() {
+		document.getElementById("traddress").style.display = "";
+	});
+});
+
+
+
+
+
+// document.getElementById("traddress").style.display = "";
+// document.getElementById("tdaddress").innerHTML = "";
+$(function() {
+	$("#addressupdatebtn").click(function() {
+		$.ajax({
+			url: "../../controller/memberupdatecontroller.jsp",
+			data: { address1: document.getElementById("sample4_postcode").value, address2: document.getElementById("sample4_roadAddress").value, address3: document.getElementById("sample4_jibunAddress").value, address4: document.getElementById("sample4_detailAddress").value },
+			success: function(result) {
+				if (result == 5) {
+					document.getElementById("traddress").style.display = "none";
+					document.getElementById("tdaddress").innerHTML = "";
 				}
-			});
+			}
 		});
 	});
+});
 
-}
 
 
 /*회원가입 유효성 검사*/

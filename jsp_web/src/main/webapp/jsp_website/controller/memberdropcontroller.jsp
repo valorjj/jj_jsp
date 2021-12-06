@@ -1,10 +1,14 @@
+<%@page import="dao.Login_Id"%>
 <%@page import="dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
 request.setCharacterEncoding("utf-8");
+
+Login_Id login = (Login_Id) session.getAttribute("login");
+
 String password = request.getParameter("password");
-String id = (String) session.getAttribute("loginid");
+String id = login.getM_id();
 // 1. 현재 세션에 있는 정보와 동일하면 탈퇴 
 boolean result = MemberDao.getmemberDao().member_drop(id, password);
 

@@ -10,9 +10,12 @@
 
 	<%
 	// session.invalidate(); // 1. 세션 초기화 -> 주의 : 전부 다 날라간다.
-	session.setAttribute("loginid", null); // 2. 특정 세션을 초기화시킨다. 
+	session.setAttribute("login", null); // 2. 특정 세션을 초기화시킨다. 
 	// 3. java 는 null 값이 부여되면 메모리값이 사라진다 (garbage collector)
 	response.sendRedirect("../view/main.jsp");
+	
+	
+	
 	%>
 
 

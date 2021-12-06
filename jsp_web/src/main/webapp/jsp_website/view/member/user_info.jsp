@@ -18,7 +18,6 @@
 
 	<!-- 로그인 된 유저 정보를 나타내는 페이지 -->
 
-
 	<div class="container">
 		<div class="row">
 			<!-- 사이드바 -->
@@ -38,16 +37,16 @@
 			<div class="col-md-9">
 				<!-- 페이지 전환이 없고, 내용물만 바뀜 -->
 
+				<h3>주문 내역 출력</h3>
+
 				<div class="tab-content" id="pills-tabcontent">
 
 					<div class="tab-pane fade show active" id="pills-order">
 
-						<h3>주문 내역 출력</h3>
+
 
 						<div class="container"></div>
 					</div>
-
-
 
 					<!-- 1. 회원 정보를 출력하는 섹션 -->
 					<div class="tab-pane fade " id="pills-memberinfo">
@@ -103,11 +102,13 @@
 										<td>주소</td>
 										<td id="tdaddress"><%=member.getM_address().substring(6)%></td>
 										<td>
-											<button class="form-control btn btn-success"
-												onclick="updateaddress();">수정</button>
+											<button class="form-control btn btn-success" id="add_update"
+												data-toggle="collapse" data-target="#traddress"
+												aria-expanded="false">수정</button>
 										</td>
 									</tr>
-									<tr style="display: none;" id="traddress">
+
+									<tr id="traddress" class="collapse">
 										<td colspan="3">
 											<div class="row">
 												<div class="row my-3 m-2">
@@ -141,6 +142,7 @@
 												</div>
 
 											</div>
+
 											<div>
 												<input type="button"
 													class="form-control btn btn-warning m-2" value="주소변경"

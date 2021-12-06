@@ -11,15 +11,13 @@
 	<%@ include file="../header.jsp"%>
 
 	<%
-	if (session.getAttribute("loginid") != null) {
+	if (loginid != null) {
 		out.print("<script> alert('로그인이 되어있습니다.'); </script>");
 		out.println("<script> location.href='../main.jsp'; </script>");
 	}
 	%>
 
-
 	<div class="container">
-
 		<div class="text-center">
 			<h3 style="border-bottm: solid 1px #eeeeee;">로그인</h3>
 			<br>
