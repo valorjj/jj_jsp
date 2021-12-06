@@ -36,17 +36,7 @@
 			<!-- 본문 -->
 			<div class="col-md-9">
 				<!-- 페이지 전환이 없고, 내용물만 바뀜 -->
-
-				<h3>주문 내역 출력</h3>
-
 				<div class="tab-content" id="pills-tabcontent">
-
-					<div class="tab-pane fade show active" id="pills-order">
-
-
-
-						<div class="container"></div>
-					</div>
 
 					<!-- 1. 회원 정보를 출력하는 섹션 -->
 					<div class="tab-pane fade " id="pills-memberinfo">

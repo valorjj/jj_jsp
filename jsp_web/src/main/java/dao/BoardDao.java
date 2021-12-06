@@ -79,4 +79,24 @@ public class BoardDao {
 		return null;
 	}
 
+	public Board get_board(int b_no) {
+
+		String sql = " select * from board where b_no=?";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, b_no);
+			res = psmt.executeQuery();
+			if (res.next()) {
+				Board board = new Board(res.getInt(1), res.getString(2), res.getString(3), res.getInt(4),
+						res.getString(5), res.getString(6), res.getInt(7), res.getInt(8));
+				return board;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

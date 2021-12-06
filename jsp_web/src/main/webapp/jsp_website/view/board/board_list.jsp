@@ -14,11 +14,15 @@
 	<%@ include file="../header.jsp"%>
 
 	<div class="container">
-		<a href="board_write.jsp" >
-			<button class="form-control btn btn-primary">글쓰기</button>
-		</a>
+	
+		<div class="d-grid gap-2 col-6 mx-auto">
+			<a href="board_write.jsp" >
+				<button class="form-control btn btn-success my-3">글쓰기</button>
+			</a>
+		</div>
 
-		<table class="table">
+
+		<table class="table table-striped">
 			<tr>
 				<th>번호</th>
 				<th>제목</th>
@@ -36,7 +40,8 @@
 
 			<tr>
 				<td><%=board.getB_no()%></td>
-				<td><%=board.getB_title()%></td>
+				<td><a href="board_view.jsp?b_no=<%=board.getB_no()%>"><%=board.getB_title()%></a></td>
+				<!-- 클릭한 게시물 번호도 같이 이동하게 만들자 -->
 				<td><%=board.getM_num()%></td>
 				<td><%=board.getB_date()%></td>
 				<td><%=board.getB_view()%></td>

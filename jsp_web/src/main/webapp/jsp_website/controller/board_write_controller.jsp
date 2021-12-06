@@ -12,7 +12,7 @@
 // String folderpath = "C:/Users/505/git/jj_jsp/jsp_web/src/main/webapp/jsp_website/upload";
 
 // 3. 서버 폴더 업로드 
-String folderpath = request.getSession().getServletContext().getRealPath("/");
+String folderpath = request.getSession().getServletContext().getRealPath("jsp_website/upload");
 
 MultipartRequest multi = new MultipartRequest(request, folderpath, 1024 * 1024 * 10, "utf-8",
 		new DefaultFileRenamePolicy());
