@@ -16,6 +16,8 @@
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css"
 	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -61,17 +63,17 @@
 							if (loginid != null) { // 1. 로그인이 되어있는 경우
 								if (loginid.equals("admin")) { // 2. 관리자 계정으로 로그인 할 경우
 							%>
-							<li><a href="/jsp_web/jsp_website/view/admin/adminmain.jsp"
-								class="header_menu"> 관리자 </a></li>
+								<li style="color: green;"><span>관리자님</span> 님 환영합니다.</li>
+								<li><a href="/jsp_web/jsp_website/view/admin/dashboard.jsp" class="header_menu"> 관리자페이지 </a></li>
+								<li><a href="/jsp_web/jsp_website/controller/logoutcontroller.jsp" class="header_menu"> 로그아웃 </a></li>
 							<%
-							}
+							} else {
 							%>
-							<li style="color: green;"><span><%=loginid%></span> 님 환영합니다.</li>
-							<li><a href="/jsp_web/jsp_website/view/member/user_info.jsp"
-								class="header_menu"> 회원정보 </a></li>
-							<li><a
-								href="/jsp_web/jsp_website/controller/logoutcontroller.jsp"
-								class="header_menu"> 로그아웃 </a></li>
+								<li style="color: green;"><span><%=loginid%></span> 님 환영합니다.</li>
+								<li><a href="/jsp_web/jsp_website/view/member/user_info.jsp" class="header_menu"> 회원정보 </a></li>
+								<li><a href="/jsp_web/jsp_website/controller/logoutcontroller.jsp" class="header_menu"> 로그아웃 </a></li>
+							<% } %>
+							
 							<%
 							} else { /* 로그인 되어있지 않을 경우 */
 							%>
@@ -119,6 +121,8 @@
 		</div>
 	</div>
 
+	<br>
+	<br>
 	<br>
 	<br>
 	<br>

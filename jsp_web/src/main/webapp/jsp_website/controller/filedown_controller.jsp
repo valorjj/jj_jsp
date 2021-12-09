@@ -12,7 +12,8 @@ String filename = request.getParameter("file");
 // 2. 서버 내 업로드 폴더 찾기 
 // 2.1 서블릿 경로를 찾는다. 
 // 2.2 project 이름까지 realpath 가 들어간다. 그래서 webapp 아래 있는 폴더 이름부터 시작한다. 
-String folderpath = request.getSession().getServletContext().getRealPath("jsp_website/upload/" + filename);
+// String folderpath = request.getSession().getServletContext().getRealPath("jsp_website/upload/" + filename);
+String folderpath = "C:/Users/505/git/jj_jsp/jsp_web/src/main/webapp/jsp_website/upload" + filename;
 // 3. 서버 내 업로드 폴더 내 파일 찾아서 객체화[파일 객체]
 File file = new File(folderpath);
 // 4. 클라이언트에게 응답하기 

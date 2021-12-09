@@ -23,3 +23,9 @@ h1, h2, h3, h4 {
 .carousel-item img {
 	width: 100%;
 }
+
+.pimg:hover{
+	transform : scale(1.4);
+	cursor: pointer;
+	
+}

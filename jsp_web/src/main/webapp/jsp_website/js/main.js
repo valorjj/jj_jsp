@@ -313,7 +313,96 @@ function signupcheck() {
 
 }
 
+/* 제품 상태 변경 */
 
+function activeupdate(p_no) {
+	var p_no = p_no;
+	if (confirm("상태변경하시겠습니까?") == true) {
+		// ajax 통신으로 상태를 다음 상태로 변경 (1 -> 2, 2->3, 3->1 이런 식)
+		$(function() {
+			$.ajax({
+				url: "../../controller/product_active_controller.jsp",
+				data: { p_no: p_no },
+				success: function(result) {
+					if (result == 1) {
+						location.reload(); // jQuery 
+					} else {
+						alert("오류발생. 관리자문의");
+					}
+				}
+			});
+		});
+	}
+}
+
+/* 제품 정보 수정 (이름) */
+
+function product_update_name(p_no) {
+	var p_no = p_no;
+	alert(p_no);
+	document.getElementById("td_p_name").innerHTML = "<div class='input-group'> <input type='text' id='p_name' class='form-control'> <button id='p_btn_name' class='btn btn-outline-info'> 확인 </button>  </div>"
+	$(function() {
+		$("#p_btn_name").click(function() {
+			alert(p_no);
+			$.ajax({
+				url: "../../controller/product_update_controller.jsp",
+				data: { p_name: p_name, p_no: p_no },
+				success: function(result) {
+					if (result == 1) {
+						alert("수정 완료");
+						location.reload();
+					} else {
+						alert("오류. 관리자문의 바람");
+					}
+				}
+			});
+		});
+	});
+}
+
+/* 제품 정보 수정 (가격) */
+
+function product_update_price() {
+	document.getElementById("td_p_price").innerHTML = "<div class='input-group'> <input type='text' id='p_price' class='form-control'> <button id='p_btn_price' class='btn btn-outline-info'> 확인 </button>  </div>"
+	$(function() {
+		$("#p_btn_price").click(function() {
+			$.ajax({
+				url: "../../controller/product_update_controller.jsp",
+				data: { p_price: p_price },
+				success: function(result) {
+					if (result == 1) {
+						alert("수정 완료");
+						location.reload();
+					} else { alert("오류. 관리자문의 바람"); }
+				}
+			});
+		});
+	});
+}
+
+/* 제품 정보 수정 (카테고리) */
+
+function product_update_category(p_no) {
+	var p_no = p_no;
+	alert(p_no);
+	document.getElementById("tr_p_category_og").style.display = "none";
+	document.getElementById("tr_p_category").style.display = "";
+	$(function() {
+		$("#p_btn_category").click(function() {
+			alert(p_no);
+			$.ajax({
+				url: "../../controller/product_update_controller.jsp",
+				data: { p_category: document.getElementById("pcategory").value, p_no: p_no },
+				success: function(result) {
+					if (result == 1) {
+						alert("수정 완료");
+						location.reload();
+					} else { alert("오류. 관리자문의 바람"); }
+				}
+			});
+		});
+	});
+}
 
 
 

@@ -1,5 +1,10 @@
 package dto;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import dao.MemberDao;
+
 public class Board {
 
 	// 1. 필드
@@ -12,6 +17,7 @@ public class Board {
 	private int b_view;
 	private int b_activation;
 	private String b_file2;
+	private String b_writer;
 
 	// 1. 빈 생성자
 	public Board() {
@@ -24,10 +30,27 @@ public class Board {
 		this.b_title = b_title;
 		this.b_content = b_content;
 		this.m_num = m_num;
-		this.b_date = b_date;
+
+		Date today = new Date();
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dateFormat2 = new SimpleDateFormat("hh : mm");
+		try {
+			Date date = dateFormat.parse(b_date); // [문자열] DB --> 날짜형 변환
+			this.b_date = dateFormat.format(date); // 형식 변환
+			if (this.b_date.equals(dateFormat.format(today))) {
+				this.b_date = dateFormat2.format(today);
+			} else {
+				this.b_date = dateFormat.format(date);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		this.b_file = b_file;
 		this.b_view = b_view;
 		this.b_activation = b_activation;
+		this.b_writer = MemberDao.getmemberDao().member_find_id(m_num);
 	}
 
 	public Board(int b_no, String b_title, String b_content, int m_num, String b_date, String b_file, int b_view,
@@ -36,11 +59,27 @@ public class Board {
 		this.b_title = b_title;
 		this.b_content = b_content;
 		this.m_num = m_num;
-		this.b_date = b_date;
+
+		Date today = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dateFormat2 = new SimpleDateFormat("hh : mm");
+		try {
+			Date date = dateFormat.parse(b_date); // [문자열] DB --> 날짜형 변환
+			this.b_date = dateFormat.format(date); // 형식 변환
+			if (this.b_date.equals(dateFormat.format(today))) {
+				this.b_date = dateFormat2.format(today);
+			} else {
+				this.b_date = dateFormat.format(date);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		this.b_file = b_file;
 		this.b_view = b_view;
 		this.b_activation = b_activation;
 		this.b_file2 = b_file2;
+		this.b_writer = MemberDao.getmemberDao().member_find_id(m_num);
 	}
 
 	// 1. 등록 생성자
@@ -56,6 +95,15 @@ public class Board {
 		this.b_title = b_title;
 		this.b_content = b_content;
 		this.m_num = m_num;
+		this.b_file = b_file;
+		this.b_file2 = b_file2;
+	}
+
+	// 1. 수정 생성자
+	public Board(int b_no, String b_title, String b_content, String b_file, String b_file2) {
+		this.b_no = b_no;
+		this.b_title = b_title;
+		this.b_content = b_content;
 		this.b_file = b_file;
 		this.b_file2 = b_file2;
 	}
@@ -130,6 +178,14 @@ public class Board {
 
 	public void setB_file2(String b_file2) {
 		this.b_file2 = b_file2;
+	}
+
+	public String getB_writer() {
+		return b_writer;
+	}
+
+	public void setB_writer(String b_writer) {
+		this.b_writer = b_writer;
 	}
 
 }

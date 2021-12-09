@@ -1,3 +1,7 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="dto.Product"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dao.ProductDao"%>
 <%@page import="dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -52,9 +56,43 @@
 
 	<!-- 캐러셀 종료 -->
 
-
+	<hr>
+	
+	<div class="container text-center">
+		<h3> 신제품 </h3>
+		<p> New Arrival</p>
+	</div>
+	
 	<!-- 제품 목록 시작 -->
-
+	<div class="container">
+		<div class="row">
+		<!-- 반복문 돌아가는 부분 -->
+		<%
+			ArrayList<Product> products = ProductDao.getProductDao().get_product_list(null, null);
+			for(Product product : products){
+		%>
+			<div class="col-md-4">
+				<div class="card">
+					<a href="product/product_view.jsp?p_no=?<%=product.getP_no()%>"><img alt="" src="/jsp_web/jsp_website/upload/<%=product.getP_image() %>" class="card-img-top pimg"></a>
+					<div class="card-body">
+						<p class="card-text"> <%=product.getP_name() %> </p>
+						<hr>
+						<p class="item"> 
+						<%=product.getP_contents() %> <br>
+						<span class="price"> <%=product.get_decimal() %> </span> <br>
+						<span class="badge badge-pill badge-danger"> <%=product.get_status() %> </span>
+						</p>
+					</div>
+				</div>
+			</div>
+		<% } %>
+		<!--  -->
+		
+		</div>
+	
+	</div>
+	
+	
 	<!-- 제품 목록 종료 -->
 
 

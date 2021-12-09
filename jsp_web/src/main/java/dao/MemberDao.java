@@ -289,7 +289,6 @@ public class MemberDao {
 	// 1. 회원 번호를 찾는 메소드
 
 	public int member_find_m_num(String id) {
-
 		String sql = "select m_num from member where m_id=?";
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -302,9 +301,23 @@ public class MemberDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return 0;
+	}
 
+	// 1. 회원 아이디 검색
+	public String member_find_id(int m_num) {
+		String sql = "select m_id from member where m_num=?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, m_num);
+			res = psmt.executeQuery();
+			if (res.next()) {
+				return res.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 
 }

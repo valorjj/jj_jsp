@@ -9,7 +9,7 @@
 <%
 // 1. cos 가 jdk 11 와 호환이 되지 않는다. 그래서 1.8로 버전을 내렸다. 
 // 2. 현재 작업 폴더 업로드
-String folderpath = "C:/Users/505/git/jj_jsp/jsp_web/src/main/webapp/jsp_website/upload";
+String folderpath = request.getSession().getServletContext().getRealPath("jsp_website/upload");
 
 // 3. 서버 폴더 업로드 
 // String folderpath = request.getSession().getServletContext().getRealPath("jsp_website/upload");
@@ -24,35 +24,29 @@ request.setCharacterEncoding("utf-8");
 String title = multi.getParameter("title");
 String content = multi.getParameter("content");
 // <br>, 프론트 < > 태그 제거해야함 
-// content = content.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\S)*(/)?", "");
-
 content = content.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>");
 title = title.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\S)*(/)?", "");
-
-/* String f1 = request.getParameter("file");
-String f2 = request.getParameter("file2"); */
 
 String file = multi.getFilesystemName("file");
 String file2 = multi.getFilesystemName("file2");
 
-// getFilesystemName : 실제 파일 이름을 가져온다. 업로드와는 관련없고, enctype="multipart/form-data" 얘랑 관련있다. 
+if (file == null || file2 == null) {
+	file = multi.getParameter("oldfile"); // 1. 형식이 type="hidden" 이라서 getParameter
 
-// 2. 일반 form 을 썼을 때는 아래와 같이 사용한다.
-
-/* String title = request.getParameter("title");
-String content = request.getParameter("content");
-String file = request.getParameter("file"); */
-
-Login_Id login_data = (Login_Id) session.getAttribute("login");
-int m_num = login_data.getM_num();
-
-Board board;
-if (file2 == null) {
-	board = new Board(title, content, m_num, file, null);
-} else {
-	board = new Board(title, content, m_num, file, file2);
 }
+if (file2 == null) {
+	file2 = multi.getParameter("oldfile2");
+}
+int b_no = Integer.parseInt(multi.getParameter("b_no"));
 
-BoardDao.getboardDao().board_write_file2(board);
-response.sendRedirect("../view/board/board_list.jsp");
+Board board = new Board(b_no, title, content, file, file2);
+
+boolean result = BoardDao.getboardDao().board_update(board);
+
+if (result) {
+	out.print("<script> alert('수정되었습니다.'); </script>");
+	out.println("<script> location.href='../view/board/board_view.jsp?b_no=" + b_no + "'; </script>");
+} else {
+
+}
 %>
