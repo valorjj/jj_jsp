@@ -19,6 +19,13 @@
 	<!-- 로그인 된 유저 정보를 나타내는 페이지 -->
 
 	<div class="container">
+	
+		<div style="margin: 10px">
+			<h3 style="border-bottom: solid 1px #eeeee;"> 회원 정보 </h3>
+			<br>
+			<p style="color: orange;"> · 공지사항을 참고해주세요 · </p>
+		</div>
+		
 		<div class="row">
 			<!-- 사이드바 -->
 			<div class="col-md-3">
