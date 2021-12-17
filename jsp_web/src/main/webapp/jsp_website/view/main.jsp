@@ -73,7 +73,7 @@
 		%>
 			<div class="col-md-4">
 				<div class="card">
-					<a href="product/product_view.jsp?p_no=?<%=product.getP_no()%>"><img alt="" src="/jsp_web/jsp_website/upload/<%=product.getP_image() %>" class="card-img-top pimg"></a>
+					<a href="product/productView.jsp?p_no=<%=product.getP_no()%>"><img alt="" src="/jsp_web/jsp_website/upload/<%=product.getP_image() %>" class="card-img-top pimg"></a>
 					<div class="card-body">
 						<p class="card-text"> <%=product.getP_name() %> </p>
 						<hr>

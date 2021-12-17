@@ -5,14 +5,12 @@
 }
 
 h1, h2, h3, h4 {
-	
 	font-family: 'NanumGothicBold';
-	
 }
 
 .header_logo {
 	font-size: 2rem;
-	color : #171521;
+	color: #171521;
 }
 
 .header_menu {
@@ -24,8 +22,28 @@ h1, h2, h3, h4 {
 	width: 100%;
 }
 
-.pimg:hover{
-	transform : scale(1.4);
+.pimg:hover {
+	transform: scale(1.4);
 	cursor: pointer;
+}
+
+#total {
+	font-family: 'NanumGothicBold';
+	font-size: 1.5rem;
+}
+
+.preview {
+	font-family: 'NanumGothicBold';
+	font-size: 1rem;
+	padding: 10px;
+}
+
+.totalbox {
+	border: 3px solid #eeeeee;
+}
+
+.totalbox span{
 	
+	font-weight: bold;
+	font-size : 25px;
 }

@@ -64,13 +64,8 @@
 								<div class="dropdown">
 									<button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"> 카테고리 </button>
 									<div class="dropdown-menu" id="category_list">
-										<a href="product_update.jsp?p_no=<%=product.getP_no() %>" class="dropdown-item" onclick="product_update_category(<%=product.getP_no() %>);">상의</a>
-										<a href="product_update.jsp?p_no=<%=product.getP_no() %>" class="dropdown-item" onclick="product_update_category(<%=product.getP_no() %>);">하의</a>
-										<%-- <a href="product_update.jsp?p_category=pants&p_no=<%=product.getP_no() %>" class="dropdown-item">하의</a> --%>
-										<%-- <button id="pcategory" class="dropdown-item" type="button" onclick="product_update_category(<%=product.getP_no() %>);" value="top">상의</button>
-										<button id="pcategory" class="dropdown-item" type="button" onclick="product_update_category(<%=product.getP_no() %>);" value="pants">하의</button>
-										<button id="pcategory" class="dropdown-item" type="button" onclick="product_update_category(<%=product.getP_no() %>);" value="outer">아우터</button>
-										<button id="pcategory" class="dropdown-item" type="button" onclick="product_update_category(<%=product.getP_no() %>);" value="etc">잡화</button> --%>
+										<a href="product_update.jsp?p_no=<%=product.getP_no() %>" class="dropdown-item" onclick="product_update_category(<%=product.getP_no() %>, top);">상의</a>
+										<a href="product_update.jsp?p_no=<%=product.getP_no() %>" class="dropdown-item" onclick="product_update_category(<%=product.getP_no() %>, bottom);">하의</a>
 									</div>
 								</div>
 							</td>

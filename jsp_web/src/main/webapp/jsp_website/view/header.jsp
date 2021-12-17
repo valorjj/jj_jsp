@@ -7,9 +7,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+<!-- 작성한 css 불러오기 -->
+<link rel="stylesheet" href="/jsp_web/jsp_website/css/main.css">
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="/jsp_web/jsp_website/css/main.css">
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css"
 	rel="stylesheet">
@@ -18,11 +21,10 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
 </head>
 
 <body>
-
-
 	<!-- JQuery -->
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script
@@ -63,17 +65,25 @@
 							if (loginid != null) { // 1. 로그인이 되어있는 경우
 								if (loginid.equals("admin")) { // 2. 관리자 계정으로 로그인 할 경우
 							%>
-								<li style="color: green;"><span>관리자님</span> 님 환영합니다.</li>
-								<li><a href="/jsp_web/jsp_website/view/admin/dashboard.jsp" class="header_menu"> 관리자페이지 </a></li>
-								<li><a href="/jsp_web/jsp_website/controller/logoutcontroller.jsp" class="header_menu"> 로그아웃 </a></li>
+							<li style="color: green;"><span>관리자님</span> 님 환영합니다.</li>
+							<li><a href="/jsp_web/jsp_website/view/admin/dashboard.jsp"
+								class="header_menu"> 관리자페이지 </a></li>
+							<li><a
+								href="/jsp_web/jsp_website/controller/logoutcontroller.jsp"
+								class="header_menu"> 로그아웃 </a></li>
 							<%
 							} else {
 							%>
-								<li style="color: green;"><span><%=loginid%></span> 님 환영합니다.</li>
-								<li><a href="/jsp_web/jsp_website/view/member/user_info.jsp" class="header_menu"> 회원정보 </a></li>
-								<li><a href="/jsp_web/jsp_website/controller/logoutcontroller.jsp" class="header_menu"> 로그아웃 </a></li>
-							<% } %>
-							
+							<li style="color: green;"><span><%=loginid%></span> 님 환영합니다.</li>
+							<li><a href="/jsp_web/jsp_website/view/member/user_info.jsp"
+								class="header_menu"> 회원정보 </a></li>
+							<li><a
+								href="/jsp_web/jsp_website/controller/logoutcontroller.jsp"
+								class="header_menu"> 로그아웃 </a></li>
+							<%
+							}
+							%>
+
 							<%
 							} else { /* 로그인 되어있지 않을 경우 */
 							%>
@@ -115,6 +125,9 @@
 						<li class="nav-item dropdown"><a
 							href="/jsp_web/jsp_website/view/board/board_list.jsp"
 							class="nav-link dropdown-item"> 고객센터 </a></li>
+						<li class="nav-item dropdown"><a
+							href="/jsp_web/jsp_website/view/product/productCart.jsp"
+							class="nav-link dropdown-item"> 장바구니 </a></li>
 					</ul>
 				</div>
 			</nav>

@@ -380,11 +380,14 @@ function product_update_price() {
 	});
 }
 
-/* 제품 정보 수정 (카테고리) */
+/* 
+제품 정보 수정 (카테고리) 
+*/
 
-function product_update_category(p_no) {
+function product_update_category(p_no, p_category) {
 	var p_no = p_no;
-	alert(p_no);
+	var p_category = p_category;
+	alert(p_no, p_category);
 	document.getElementById("tr_p_category_og").style.display = "none";
 	document.getElementById("tr_p_category").style.display = "";
 	$(function() {
@@ -405,5 +408,314 @@ function product_update_category(p_no) {
 }
 
 
+/* 2021-12-13 
+
+제품 수량 변경 함수*/
+
+function pchange(type, inStock, price) {
+	var minCount = 1; // 최소 제품 수량
+	var pcount = document.getElementById("pcount").value * 1;
+
+	if (type == "m") { // 마이너스 버튼을 눌렀을 때 
+		pcount -= 1;
+		if (pcount < minCount) { // 최소 제품 수량보다 작아지면 메시지 출력하고 함수 종료 
+			alert("수량은 1개 이상만 가능합니다.");
+			pcount = 1;
+		}
+
+	} else if (type == "p") { // 플러스 버튼을 눌렀을 때
+		pcount += 1;
+		if (pcount > inStock) { // 최대 수량보다 커지면 메시지 출력하고 함수 종료
+			alert("죄송합니다. 재고가 부족합니다. ");
+			pcount = inStock;
+		}
+
+	} else { // 수량을 직접 입력했을 때
+
+		if (pcount < minCount) { // 최소 제품 수량보다 작아지면 메시지 출력하고 함수 종료 
+			alert("수량은 1개 이상만 가능합니다.");
+			pcount = 1;
+		}
+		if (pcount > inStock) { // 최대 수량보다 커지면 메시지 출력하고 함수 종료
+			alert("죄송합니다. 재고가 부족합니다. ");
+			pcount = inStock;
+		}
+	}
+
+	document.getElementById("pcount").value = pcount; // .value 속성 태그 [입력상자 input]
+	var totalPrice = pcount * price;
+	document.getElementById("total").innerHTML = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); // .innerHTML 속성 태그 [div]
+	// 총가격.toString() : 문자열 변환
+	// .replace(기존문자, 새로운 문자)
+	// 정규 표현식 : /\B(?=(\d{3})+(?!\d))/g
+	// 1. / : 시작
+	// 2. \b : 시작, 끝 문자 [ 예 : 1234 일 경우 1, 4 ]
+	// 3. d{3} : 문자 길이 [ 예 : {3} : 숫자 길이 123 ]
+	// 4. !\d : 뒤에 숫자가 없을 경우
+	// 5. /g : 전역 검색
+
+}
+
+/* 찜하기 */
+
+function plike(p_no, m_num) {
+	if (m_num == 0) { alert("로그인 후 사용가능한 기능입니다. "); return; }
+	// 비동기식 통신을 위한 함수
+	$(function() {
+
+		$.ajax({
+			url: "../../controller/productLikeController.jsp",
+			data: { p_no: p_no, m_num: m_num },
+			success: function(result) {
+				if (result == 1) {
+					document.getElementById("btnplike").innerHTML = "찜하기 <i class='bi bi-heart'></i>";
+
+				} else if (result == 2) {
+					document.getElementById("btnplike").innerHTML = "찜하기 <i class='bi bi-heart-fill'></i>";
+
+				}
+			}
+		});
+	});
+}
+
+/* 장바구니 시작 */
+
+function cartadd() {
+
+	// 1. jQuery 를 이용해서 값 가져오기 
+	// 1.1 id 속성
+	// var p_no2 = $("#p_no").val(); alert("[jQuery] id 속성 : " + p_no2);
+	// 1.2 name 속성 이용
+	// var p_no3 = $("input[name=p_no]").val(); alert("[jQuery] name 속성 : " + p_no3);
+	// 1.3 class 속성 이용
+	// var p_no4 = $(".p_no").val(); alert("[jQuery] class 속성 : " + p_no4);
+
+	// 2. js 를 이용한 값 가져오기 
+
+	// 2.1 id 값 이용. id 는 중복으로 끌어오기 불가능 
+	var p_no = document.getElementById("p_no").value;
+
+	// 2.2 class 속성 이용. class 중복을 허용하기 때문에 배열로 받아서 선택
+	// var p_no5 = document.getElementsByClassName("p_no")[0].value; alert("[js] class 속성 : " + p_no5);
+
+	// 2.3 name 속성 이용. name 은 중복을 허용하기 때문에 배열로 받아서 선택
+	// var p_no6 = document.getElementsByName("p_no")[0].value; alert("[js] name 속성 : " + p_no6);
+
+
+	var p_size = document.getElementById("p_size").value;
+	if (p_size == 0) {
+		alert("사이즈 옵션을 선택하지 않으셨습니다."); return;
+	}
+
+	var p_count = document.getElementById("pcount").value;
+
+	// 컨트롤러 이동 [1. href 2. ajax]
+	// location.href = "../../controller/productCartController.jsp?p_no=" + p_no + "&p_size=" + p_size + "&p_count=" + p_count;
+
+	$.ajax({
+		url: "../../controller/productCartController.jsp",
+		data: { p_no: p_no, p_size: p_size, p_count: p_count },
+		success: function(result) {
+			if (confirm("장바구니에 상품을 담았습니다. 장바구니로 이동하시겠습니까? ") == true) {
+				location.href = "productCart.jsp";
+			}
+		}
+	});
+
+}
+
+
+/* 장바구니 비우기 */
+
+function CartDelete(type, p_no, p_size) {
+
+	$.ajax({
+		url: "../../controller/productCartDeleteController.jsp",
+		data: { type: type, p_no: p_no, p_size: p_size, i: -1, p_count: -1 },
+		success: function(result) {
+			location.reload();
+		}
+	});
+}
+
+/* 장바구니 수량 변경 */
+
+function pchange2(i, type, inStock, price) {
+	var minCount = 1;
+	var p_count = document.getElementById("pcount" + i).value * 1;
+	if (type == "m") { // 마이너스 버튼을 눌렀을 때 
+		p_count -= 1;
+		if (p_count < minCount) { // 최소 제품 수량보다 작아지면 메시지 출력하고 함수 종료 
+			alert("수량은 1개 이상만 가능합니다.");
+			p_count = 1;
+		}
+
+	} else if (type == "p") { // 플러스 버튼을 눌렀을 때
+		p_count += 1;
+		if (p_count > inStock) { // 최대 수량보다 커지면 메시지 출력하고 함수 종료
+			alert("죄송합니다. 재고가 부족합니다. ");
+			p_count = inStock;
+		}
+
+	} else { // 수량을 직접 입력했을 때
+
+		if (p_count < minCount) { // 최소 제품 수량보다 작아지면 메시지 출력하고 함수 종료 
+			alert("수량은 1개 이상만 가능합니다.");
+			p_count = 1;
+		}
+		if (p_count > inStock) { // 최대 수량보다 커지면 메시지 출력하고 함수 종료
+			alert("죄송합니다. 재고가 부족합니다. ");
+			p_count = inStock;
+		}
+	}
+
+	document.getElementById("pcount" + i).value = p_count; // .value 속성 태그 [입력상자 input]
+	var totalPrice = p_count * price;
+	document.getElementById("total" + i).innerHTML = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); // .innerHTML 속성 태그 [div]
+
+	$.ajax({
+		url: "../../controller/productCartDeleteController.jsp",
+		data: { type: type, p_no: 0, p_size: 0, i: i, p_count: p_count },
+		success: function(result) {
+			location.reload();
+		}
+
+	});
+}
+
+
+
+/* 결제 방식 선택 1 */
+
+function paymentselect(payselect) {
+
+	document.getElementById("payselect").innerHTML = payselect;
+
+
+}
+
+/* 결제 방식 선택 2 */
+
+
+/* import 결제 api 1 */
+
+function payment() {
+
+	if (document.getElementById("payselect").innerHTML == "") {
+		alert("결제 방식을 선택해주세요.");
+		return;
+	}
+
+	alert("거래 체크 알림창");
+
+
+	var IMP = window.IMP;
+	IMP.init("imp93252585"); // 관리자 식별 코드
+
+	IMP.request_pay({ // param
+		pg: "html5_inicis",
+		pay_method: document.getElementById("payselect").innerHTML,
+		merchant_uid: "ORD20180131-0000011", // 주문 번호
+		name: "나만의 쇼핑몰",
+		amount: document.getElementById("totalPay").innerHTML,
+		buyer_email: "gildong@gmail.com",
+		buyer_name: $("#name").val(),
+		buyer_tel: $("#phone").val(),
+		buyer_addr: $("#sample4_roadAddress").val() + "," + $("#sample4_jibunAddress").val() + "," + $("#sample4_detailAddress").val(),
+		buyer_postcode: $("#sample4_postcode").val()
+	}, function(rsp) { // callback
+		if (rsp.success) {
+			// 결제 성공 했을 때 -> 주문 완료 페이지로 이동
+
+		} else {
+			// 결제 실패 했을 때
+			// 테스트 : 결제 성공 
+			$.ajax({
+				url: "../../controller/productPaymentController.jsp",
+				data: {
+
+					order_name: $("#name").val(),
+					order_phone: $("#phone").val(),
+					order_address: $("#sample4_postcode").val() + "," + $("#sample4_roadAddress").val() + "," + $("#sample4_jibunAddress").val() + "," + $("#sample4_detailAddress").val(),
+					order_pay: document.getElementById("totalPay").innerHTML,
+					order_payment: document.getElementById("payselect").innerHTML,
+					delivery_pay: 3000,
+					order_request: document.getElementById("prequest").value
+				},
+				success: function(result) {
+					if (result == 1) {
+						// 결제 성공 후 결제 주문 완료 페이지로 이동
+						location.href = "productPaymentSuccess.jsp";
+					}
+
+
+					else if (result == 2) { }
+
+				}
+
+			});
+		}
+	});
+
+}
+
+/* import 결제 api 2 */
+
+/* 회원과 동일한지 여부 체크 1 */
+
+// 체크 유무 [jQuery]
+$(document).ready(function() {
+	$("#pay_check").change(function() {
+		if ($("#pay_check").is(":checked")) { // jQuery
+			// 체크박스가 체크 되었는지 확인 = true
+			// is : 해당 태그 속성 찾기 [ 여기서는 checked ]
+			$("#name").val($("#mname").val());
+			$("#phone").val($("#mphone").val());
+		} else {
+			$("#name").val("");
+			$("#phone").val("");
+		}
+	});
+
+	$("#pay_check_address").change(function() { // 주소
+		if ($("#pay_check_address").is(":checked")) {
+			$("#sample4_postcode").val($("#addr1").val());
+			$("#sample4_roadAddress").val($("#addr2").val());
+			$("#sample4_jibunAddress").val($("#addr3").val());
+			$("#sample4_detailAddress").val($("#addr4").val());
+		} else {
+			$("#sample4_postcode").val("");
+			$("#sample4_roadAddress").val("");
+			$("#sample4_jibunAddress").val("");
+			$("#sample4_detailAddress").val("");
+		}
+	});
+
+}); // ready 는 항상 대기
+
+/* 회원과 동일한지 여부 체크 2 */
+
+
+/* 결제 정보 1 */
+function pointCheck(mpoint) {
+	// input box 는 기본 타입이 String 이라서 숫자 연산을 하기 위해서는 숫자로 바꿔주어야한다. 
+
+	var point = document.getElementById("point").value * 1;
+
+	if (mpoint < point) {
+		document.getElementById("pointWarning").innerHTML = "포인트가 부족합니다.";
+		point = 0;
+	} else {
+		document.getElementById("userPoint").innerHTML = point;
+	}
+
+	var totalPrice = document.getElementById("totalprice").innerHTML * 1;
+	var totalDelivery = document.getElementById("totalDelivery").innerHTML * 1;
+	document.getElementById("totalPay").innerHTML = totalPrice + totalDelivery - point;
+
+}
+
+/* 결제 정보 2 */
 
 

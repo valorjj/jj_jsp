@@ -15,16 +15,22 @@ public class Product {
 	private String p_image;
 	private String p_contents;
 	private String p_date;
-	
-	public String get_decimal() {
+
+	public String get_decimal() { // 천 단위 쉼표
 		DecimalFormat decimalFormat = new DecimalFormat("###,###");
 		return decimalFormat.format(this.p_price);
 	}
-	
+
 	public String get_status() {
-		if(this.p_status==1) {return "준비중";}
-		if(this.p_status==2) {return "판매중";}
-		if(this.p_status==3) {return "품절";}
+		if (this.p_status == 1) {
+			return "준비중";
+		}
+		if (this.p_status == 2) {
+			return "판매중";
+		}
+		if (this.p_status == 3) {
+			return "품절";
+		}
 		return null;
 	}
 
@@ -35,7 +41,6 @@ public class Product {
 			String p_size, int p_instock, String p_image, String p_contents, String p_date) {
 		this.p_no = p_no;
 		this.p_name = p_name;
-
 		this.p_price = p_price;
 		this.p_category = p_category;
 		this.p_manufacturer = p_manufacturer;
@@ -147,7 +152,5 @@ public class Product {
 	public void setP_date(String p_date) {
 		this.p_date = p_date;
 	}
-	
-	
 
 }
