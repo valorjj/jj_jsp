@@ -1,3 +1,9 @@
+<%@page import="dao.ProductDao"%>
+<%@page import="dto.Product"%>
+<%@page import="dto.POrderDetail"%>
+<%@page import="dao.POrderDao"%>
+<%@page import="dto.POrder"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="dto.Member"%>
 <%@page import="dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -19,13 +25,13 @@
 	<!-- 로그인 된 유저 정보를 나타내는 페이지 -->
 
 	<div class="container">
-	
+
 		<div style="margin: 10px">
-			<h3 style="border-bottom: solid 1px #eeeee;"> 회원 정보 </h3>
+			<h3 style="border-bottom: solid 1px #eeeee;">회원 정보</h3>
 			<br>
-			<p style="color: orange;"> · 공지사항을 참고해주세요 · </p>
+			<p style="color: orange;">· 공지사항을 참고해주세요 ·</p>
 		</div>
-		
+
 		<div class="row">
 			<!-- 사이드바 -->
 			<div class="col-md-3">
@@ -45,15 +51,78 @@
 				<!-- 페이지 전환이 없고, 내용물만 바뀜 -->
 				<div class="tab-content" id="pills-tabcontent">
 
+					<div class="tab-pane fade show active" id="pills-order">
+
+						<h3>주문 목록</h3>
+
+						<div class="container">
+
+							<%
+							ArrayList<POrder> porders = POrderDao.getPOrderDao().getPOrderList(login_data.getM_num());
+							for (int i = 0; i < porders.size(); i++) {
+							%>
+
+							<div class="row mt-5">
+								<div class="col-md-4 border rounded p-3 d-flex align-content-center flex-wrap">
+									<p class="preview">
+										주문번호 :<%=porders.get(i).getOrder_no()%>
+									</p>
+									<p>
+										주문일 :
+										<%=porders.get(i).getOrder_date()%></p>
+									<button class="form-control">주문 상세</button>
+								</div>
+								<div class="col-md-8 border rounded p-3">
+									<!-- 주문 상세 -->
+									<%
+										ArrayList<POrderDetail> porderdetails = POrderDao.getPOrderDao().getPOrderDetailList(porders.get(i).getOrder_no());
+									%>
+									
+									<% for(int j=0; j<porderdetails.size(); j++) { %>
+									<% 	Product product = ProductDao.getProductDao().get_single_product(porderdetails.get(j).getP_no()); %>
+									<p> 주문 제품 내역 </p>
+									<hr />		
+									<div class="row">
+										<div class="col-md-3 d-flex align-items-center">
+											<img src="../../upload/<%=product.getP_image() %>" alt="" style="max-width:100%;" />
+										</div>
+										<div class="col-md-9 row">
+												<p>
+													상품명 :
+													<%=product.getP_name() %>
+													옵션 :
+													<%=product.getP_size() %>
+												</p>
+												<p>수량 :</p>
+												<p>배송상태 :</p>
+											</div>
+											<div class="col-md-4">
+												<button class="btn btn-outline-danger form-control my-3">배송 조회</button>
+												<button class="btn btn-outline-danger form-control my-3">주문 변경</button>
+											</div>
+										</div>
+									</div>
+									<% } %>
+								</div>
+							</div>
+							<%
+							}
+							%>
+						</div>
+					</div>
 					<!-- 1. 회원 정보를 출력하는 섹션 -->
 					<div class="tab-pane fade " id="pills-memberinfo">
+
 						<div class="container">
+
 							<table class="table table-bordered">
+
 								<thead>
 									<tr class="text-center">
 										<th colspan="3" class="table-primary">회원 개인 정보</th>
 									</tr>
 								</thead>
+
 								<tbody>
 									<tr class="text-center">
 										<td colspan="2">아이디</td>
@@ -240,6 +309,5 @@
 
 
 	<%@ include file="../footer.jsp"%>
-
 </body>
 </html>

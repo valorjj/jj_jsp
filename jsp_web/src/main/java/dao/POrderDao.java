@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import dto.Cart;
 import dto.POrder;
+import dto.POrderDetail;
 
 public class POrderDao extends DB {
 
@@ -65,6 +66,85 @@ public class POrderDao extends DB {
 		}
 
 		return false;
+	}
+
+	// 주문 목록 빼오기
+
+	public ArrayList<POrder> getPOrderList(int m_num) {
+
+		ArrayList<POrder> porders = new ArrayList<>();
+			
+		String sql = "select * from porder where m_num = " + m_num + " order by order_no desc";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			res = psmt.executeQuery();
+
+			while (res.next()) {
+				
+				POrder porder = new POrder(
+						
+						res.getInt(1) ,
+						res.getInt(2) ,
+						res.getString(3) ,
+						res.getString(4) ,
+						res.getString(5) ,
+						res.getString(6) ,
+						res.getInt(7) ,
+						res.getString(8) ,
+						res.getInt(9) ,
+						res.getInt(10) ,
+						res.getString(11)
+						
+						);
+				porders.add(porder);
+				
+
+			}
+			return porders;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+	public ArrayList<POrderDetail> getPOrderDetailList(int order_no){
+		
+		ArrayList<POrderDetail> porderdetails = new ArrayList<>();
+		
+		String sql ="select * from porderdetail where order_no = " + order_no;
+
+		try {
+			
+			psmt = conn.prepareStatement(sql);
+			res = psmt.executeQuery();
+			
+			while(res.next()) {
+				
+				POrderDetail poderdetail = new POrderDetail(
+						
+						res.getInt(1),
+						res.getInt(2),
+						res.getInt(3),
+						res.getInt(4),
+						res.getInt(5)
+						
+						
+						);
+				porderdetails.add(poderdetail);
+				
+			}
+			
+			return porderdetails;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+		
 	}
 
 }
