@@ -719,3 +719,19 @@ function pointCheck(mpoint) {
 /* 결제 정보 2 */
 
 
+/* json 스크립트 시작 */
+
+// JSON 형식으로 가져오기
+
+
+// $.getJSON('../../controller/productChart.jsp')
+$.getJSON('../controller/productChart.jsp', function(jsonObject) {
+	// var test = { 'id': 'qwerqwer', 'password': '12341234' }
+	var keys = Object.keys(jsonObject) // 모든 키 호출 
+	for (var i = 0; i < keys.length; i++) { // 키 갯수만큼 반복
+		var key = keys[i];
+		alert("key : " + key + " value : " + jsonObject[key]); // 키 출력
+	}
+});
+
+/* json 스크립트 종료 */
