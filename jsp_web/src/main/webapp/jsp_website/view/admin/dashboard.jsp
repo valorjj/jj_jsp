@@ -56,9 +56,16 @@
 		</form>
 		<div class="row d-flex justify-content-end">
 			<a href="product_write.jsp" class="">
-				<button class="form-control btn btn-outline-success">제품 통계</button>
 				<button class="form-control btn btn-outline-success">제품 등록</button>
 			</a>
+			<a href="productChart.jsp" class="">
+				<button class="form-control btn btn-outline-success">제품 통계</button>
+			</a>
+			
+			<a href="api.jsp" class="">
+				<button class="form-control btn btn-outline-success">백신접종</button>
+			</a>
+			
 		</div>
 		<br>
 		<hr>

@@ -719,19 +719,211 @@ function pointCheck(mpoint) {
 /* 결제 정보 2 */
 
 
+
+/* 차트 그리기 시작 */
+
+/*// 1. 차트를 표시할 위치 선정
+const ctx = document.getElementById('myChart').getContext('2d');
+// 2. 차트 변수 만들기
+// 2.1 var 차트이름 = new Chart("차트위치", {차트 속성});
+const myChart = new Chart(ctx, {
+	type: 'bar',
+	data: {
+		labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+		datasets: [{
+			label: '# of Votes',
+			data: [12, 19, 3, 5, 2, 3],
+			backgroundColor: [
+				'rgba(255, 99, 132, 0.2)',
+				'rgba(54, 162, 235, 0.2)',
+				'rgba(255, 206, 86, 0.2)',
+				'rgba(75, 192, 192, 0.2)',
+				'rgba(153, 102, 255, 0.2)',
+				'rgba(255, 159, 64, 0.2)'
+			],
+			borderColor: [
+				'rgba(255, 99, 132, 1)',
+				'rgba(54, 162, 235, 1)',
+				'rgba(255, 206, 86, 1)',
+				'rgba(75, 192, 192, 1)',
+				'rgba(153, 102, 255, 1)',
+				'rgba(255, 159, 64, 1)'
+			],
+			borderWidth: 1
+		}]
+	},
+	options: {
+		scales: {
+			y: {
+				beginAtZero: true
+			}
+		}
+	}
+});
+*/
+/* 차트 그리기 종료 */
+
+
 /* json 스크립트 시작 */
+
+// 현재 json 을 따로따로 사용하기 때문에 새로고침을 여러번 하면 오류가 생긴다.
+// json 을 통합으로 사용하게 끔 하려면 어떻게 바꿔야할까?
 
 // JSON 형식으로 가져오기
 
+// 주문 그래프 시작 부분
 
 // $.getJSON('../../controller/productChart.jsp')
-$.getJSON('../controller/productChart.jsp', function(jsonObject) {
+$.getJSON('../../controller/productChart.jsp?type=1', function(jsonObject) {
 	// var test = { 'id': 'qwerqwer', 'password': '12341234' }
 	var keys = Object.keys(jsonObject) // 모든 키 호출 
+	var keyval = []; // 모든 키를 저장하는 배열
+	var valueval = []; // 모든 값을 저장하는 배열 
 	for (var i = 0; i < keys.length; i++) { // 키 갯수만큼 반복
-		var key = keys[i];
-		alert("key : " + key + " value : " + jsonObject[key]); // 키 출력
+		keyval[i] = keys[i]; // i번째 '키' 저장
+		valueval[i] = jsonObject[keyval[i]]; // i번째 '값' 저장
+		// alert("key : " + keyval + " value : " + valueval); // 키 출력
+		// 1. 차트를 표시할 위치 선정
+		const ctx = document.getElementById('myChart').getContext('2d');
+		// 2. 차트 변수 만들기
+		// 2.1 var 차트이름 = new Chart("차트위치", {차트 속성});
+		const myChart = new Chart(ctx, {
+			type: 'bar', // 차트의 형태
+			data: { // 차트에 들어갈 데이터
+				labels: keyval, // 가로축 
+				datasets: [
+					{
+						label: '# of date', // 계열명
+						data: valueval,
+						backgroundColor: [
+							'rgba(255, 99, 132, 0.2)',
+							'rgba(54, 162, 235, 0.2)',
+							'rgba(255, 206, 86, 0.2)',
+							'rgba(75, 192, 192, 0.2)',
+							'rgba(153, 102, 255, 0.2)',
+							'rgba(255, 159, 64, 0.2)'
+						],
+						borderColor: [
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)',
+							'rgba(255, 159, 64, 1)'
+						],
+						borderWidth: 1
+					}
+
+				]
+			},
+			options: { // 차트 옵션 [y축 : '0'부터 시작하도록 옵션 지정]
+				scales: {
+					yAxes: [
+						{
+							ticks: {
+								beginAtZero: true
+							}
+						}
+					]
+				}
+			}
+
+		});
 	}
 });
 
 /* json 스크립트 종료 */
+
+/*  제품별 총 판매량 그래프 */
+
+$.getJSON("../../controller/productChart.jsp?type=2", function(jsonObject) {
+	var keys2 = Object.keys(jsonObject) // 모든 키 호출 
+	var productName = []; // 모든 키를 저장하는 배열
+	var productSale = []; // 모든 값을 저장하는 배열 
+	for (var i = 0; i < keys2.length; i++) {
+		productName[i] = keys2[i]; // i번째 '키' 저장
+		productSale[i] = jsonObject[productName[i]]; // i번째 '값' 저장
+	}
+	// json 에서 value 를 빼려면 key 를 넣어야한다. 
+	// java 에서 map 형식과 동일하다. 
+	var context2 = document.getElementById('productChart').getContext('2d');
+	var myChart2 = new Chart(context2, {
+		type: 'line', // 차트 타입
+		data: { // 차트에 들어갈 데이터
+			labels: productName, // 가로축
+			datasets:
+				[
+					{	// 계열 추가
+						label: '날짜 별 주문 수', // 계열 명
+						data: productSale, // 계열 데이터
+						borderColor: 'rgba(255, 201, 14, 1)',
+						backgroundColor: 'rgba(255, 201, 14, 0.5)',
+						fill: true,
+						lineTension: 0
+					}
+				]
+		}, options: { // 차트 옵션 [y축 : '0'부터 시작하도록 옵션 지정]
+			scales: {
+				yAxes: [
+					{
+						ticks: {
+							beginAtZero: true
+						}
+					}
+				]
+			}
+		}
+
+	});
+});
+
+
+/*  제품별 판매량 그래프 종료 */
+
+
+/* 제품별 판매 추이 시작 */
+
+function showEachProductSales() {
+	var p_no = $("#productSelect").val();
+	$.getJSON('../../controller/productChart.jsp?type=3&p_no=' + p_no, function(jsonObject) {
+		var keys3 = Object.keys(jsonObject);
+		var productDate = [];
+		var productCount2 = [];
+		for (var i = 0; i < keys3.length; i++) {
+			productDate[i] = keys3[i];
+			productCount2[i] = jsonObject[productDate[i]];
+		}
+		var context3 = document.getElementById('eachProductChart').getContext('2d');
+		var myChart3 = new Chart(context3, {
+			type: 'line',
+			data: {
+				labels: productDate,
+				datasets: [
+					{
+						label: '제품 별 판매추이',
+						data: productCount2,
+						fill: false,
+						borderColor: 'rgb(75, 192, 192)',
+						tension: 0.1
+					}
+				]
+			}, options: { // 차트 옵션 [y축 : '0'부터 시작하도록 옵션 지정]
+				scales: {
+					yAxes: [
+						{
+							ticks: {
+								beginAtZero: true
+							}
+						}
+					]
+				}
+			}
+		});
+	});
+
+
+}
+
+
+
+/* 제품별 판매 추이 종료 */
