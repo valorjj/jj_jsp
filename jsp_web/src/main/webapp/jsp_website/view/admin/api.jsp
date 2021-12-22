@@ -15,12 +15,8 @@
 <body>
 
 	<%@ include file="../header.jsp"%>
-
 	<div class="container">
-
 		<table class="table">
-
-
 			<%
 			// api 가져오기 [ json 형식 ]
 
@@ -46,9 +42,17 @@
 				JSONObject content = (JSONObject) jsonArray.get(i);
 			%>
 			<tr>
-				<td> <%=content.get("facilityName") %></td>
-				
-			
+				<td><%=content.get("facilityName")%></td>
+				<td><%=content.get("address")%></td>
+				<td><%=content.get("phoneNumber")%></td>
+				<td>
+					<button class="form-control"
+						onclick="map(<%=i%>, <%=content.get("lat")%>, <%=content.get("lng")%>);">지도보기</button>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" id="showMap<%=i%>" style="display:none;"><div id="map<%=i%>"
+						style="width: 100%; height: 350px;"></div></td>
 			</tr>
 			<%
 			}

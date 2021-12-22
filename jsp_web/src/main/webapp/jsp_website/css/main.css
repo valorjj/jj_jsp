@@ -42,8 +42,48 @@ h1, h2, h3, h4 {
 	border: 3px solid #eeeeee;
 }
 
-.totalbox span{
-	
+.totalbox span {
 	font-weight: bold;
-	font-size : 25px;
+	font-size: 25px;
+}
+
+#msgbox {
+	height: 500px;
+	background: #b2c7d9;
+	margin: 15px;
+	border: 1px solid;
+	border-radius: 12px;
+	overflow: auto;
+}
+
+.from {
+	font-size: 1.0rem;
+	background: #ffeb33;
+	border-radius: 10px;
+	padding: 8px;
+}
+
+.msg-time {
+	font-size: 0.8rem;
+}
+
+.to {
+	font-size: 1.0rem;
+	background: #ffeb33;
+	border-radius: 10px;
+	padding: 8px;
+}
+
+#mlist {
+	height: 350px;
+	background: white;
+	margin: 15px;
+	border: 1px solid #eeeeee;
+	border-radius: 12px;
+	overflow: auto;
+}
+
+/* 스크롤 바 숨기기 : 브라우저마다 다 달라서 검색해야한다.  */
+.msgbox::-webkit-scrollbar {
+	display: none;
 }

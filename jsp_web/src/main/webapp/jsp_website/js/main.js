@@ -774,6 +774,7 @@ const myChart = new Chart(ctx, {
 // 주문 그래프 시작 부분
 
 // $.getJSON('../../controller/productChart.jsp')
+
 $.getJSON('../../controller/productChart.jsp?type=1', function(jsonObject) {
 	// var test = { 'id': 'qwerqwer', 'password': '12341234' }
 	var keys = Object.keys(jsonObject) // 모든 키 호출 
@@ -877,7 +878,6 @@ $.getJSON("../../controller/productChart.jsp?type=2", function(jsonObject) {
 	});
 });
 
-
 /*  제품별 판매량 그래프 종료 */
 
 
@@ -920,10 +920,29 @@ function showEachProductSales() {
 			}
 		});
 	});
-
-
 }
 
-
-
 /* 제품별 판매 추이 종료 */
+
+/* 카카오 지도 표시 시작 */
+let isMapClicked = true;
+
+function map(i, lat, lng) {
+	if (isMapClicked) {
+		document.getElementById('showMap' + i).style.display = '';
+		var mapContainer = document.getElementById('map' + i);
+		mapContainer.style.display = '';
+		mapOption = {
+			center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
+			level: 2
+			// 지도의 확대 레벨
+		};
+		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+		var map = new kakao.maps.Map(mapContainer, mapOption);
+		isMapClicked = false;
+	} else {
+		document.getElementById('showMap' + i).style.display = 'none';
+		isMapClicked = true;
+	}
+}
+/* 카카오 지도 표시 종료 */

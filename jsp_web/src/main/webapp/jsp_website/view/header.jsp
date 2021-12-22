@@ -29,6 +29,8 @@
 	<script src="/jsp_web/jsp_website/js/main.js"></script>
 	<!-- chart.js 가져오기 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	<!-- 카카오 지도 api 가져오기 -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0dbc9b456d884624c7472352027c2ceb"></script>
 
 	<!-- 헤더 시작 -->
 
@@ -111,8 +113,8 @@
 							class="nav-link dropdown-item"> 남자 </a></li>
 						<li class="nav-item dropdown"><a href="#"
 							class="nav-link dropdown-item"> 여자 </a></li>
-						<li class="nav-item dropdown"><a href="#"
-							class="nav-link dropdown-item"> 이벤트 </a></li>
+						<li class="nav-item dropdown"><a href="/jsp_web/jsp_website/view/member/chatting.jsp"
+							class="nav-link dropdown-item"> 실시간채팅 </a></li>
 						<li class="nav-item dropdown"><a href="#"
 							class="nav-link dropdown-item"> 후기 </a></li>
 						<li class="nav-item dropdown"><a
