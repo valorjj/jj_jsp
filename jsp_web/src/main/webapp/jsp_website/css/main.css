@@ -87,3 +87,10 @@ h1, h2, h3, h4 {
 .msgbox::-webkit-scrollbar {
 	display: none;
 }
+
+.roomStart {
+	/* i번째 방 입장 */
+	font-family: 'NanumGothicBold';
+	font-size: 1.3rem;
+	background-color: #eeeeee;
+}
